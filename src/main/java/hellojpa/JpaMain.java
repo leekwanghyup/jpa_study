@@ -7,24 +7,23 @@ import jakarta.persistence.Persistence;
 
 public class JpaMain {
     public static void main( String[] args ) {
+
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
 
+        // 엔티티 매니저는 데이터변경시 트랜잭션을 시작해야 한다.
         tx.begin();
-        try {
-            Member findMember = em.find(Member.class, 1L);
-            System.out.println("findMember = " + findMember.getId());
-            System.out.println("findMember = " + findMember.getName());
-            findMember.setName("HelloJPA");
+        // 영속성 엔티티 조회
+        Member memberA = em.find(Member.class, "memberA");
 
-            tx.commit();
-        } catch (Exception e){
-            tx.rollback();
-        } finally {
-            em.close();
-        }
-        em.close();
-        emf.close();
+        // 영속성 엔티티 데이터 수정
+        memberA.setUnsername("hi");
+        memberA.setAge(10);
+
+        // 이런 코드가 있어야 하지 않을까?
+        // em.update(memberA)
+        tx.commit(); // 트랜잭션 커밋
     }
 }
+

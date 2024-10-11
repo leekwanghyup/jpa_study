@@ -11,6 +11,7 @@ import lombok.Setter;
 public class Member {
 
     @Id
-    private Long id;
-    private String name;
+    private String id;
+    private String unsername;
+    private Integer age;
 }
