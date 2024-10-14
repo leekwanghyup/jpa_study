@@ -2,6 +2,7 @@ package jpabook.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -17,7 +18,7 @@ public class Order {
     private Long memberId;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date orderDate; // 주문 날짜
+    private LocalDateTime orderDate; // 주문 날짜
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status; // 주문상태
